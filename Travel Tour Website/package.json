@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@google-cloud/translate": "^8.5.0",
+    "@google-cloud/vision": "^4.3.2"
+  }
+}

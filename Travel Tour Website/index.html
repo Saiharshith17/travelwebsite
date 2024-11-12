@@ -1,0 +1,481 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Translator</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Bootstrap Link -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- Bootstrap Link -->
+
+
+  <!-- Font Awesome Cdn -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <!-- Font Awesome Cdn -->
+
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+
+  <style>
+    /* Container styling for the text area and icon */
+    .speech-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Text area styling */
+    #input-text {
+      padding-right: 40px;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    /* Microphone icon styling */
+    .mic-icon {
+      position: absolute;
+      right: 10px;
+      filter: brightness(0) invert(1);
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+
+      transition: transform 0.3s ease;
+    }
+
+    /* Animation styling when speech recognition is active */
+    .listening .mic-icon {
+      animation: pulse 1s infinite;
+    }
+
+    /* Pulse animation */
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* Container styling for the text area and icon */
+    .text-to-speech-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Text area styling */
+    #output-text {
+      padding-right: 40px;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    /* Speaker icon styling */
+    .speaker-icon {
+      position: absolute;
+      right: 10px;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      filter: brightness(0) invert(1);
+      /* Makes icon white */
+      transition: transform 0.3s ease;
+    }
+
+    /* Pulse animation when speaking */
+    .speaking .speaker-icon {
+      animation: pulse 1s infinite;
+    }
+
+    /* Pulse animation */
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+
+
+
+  <!-- Navbar Start -->
+  <nav class="navbar navbar-expand-lg" id="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="index.html" id="logo"><span>T</span>ranslator</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+        <span><i class="fa-solid fa-bars"></i></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mynavbar">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#book">Transli</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+  <!-- Navbar End -->
+
+
+
+
+
+  <!-- Home Section Start -->
+  <div class="home">
+    <div class="content">
+      <h5>Welcome To Real-Time Translator Website</h5>
+      <h1>Translate to <span class="changecontent"></span></h1>
+      <p>Translate and Transform.</p>
+      <a href="#book">Start Translating</a>
+    </div>
+  </div>
+  <!-- Home Section End -->
+
+
+
+
+
+  <!-- Section Book Start -->
+  <section class="book" id="book">
+    <div class="container">
+
+      <div class="main-text">
+        <h1><span>T</span>ranslator</h1>
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-6 py-3 py-md-0">
+          <div class="card">
+            <img src="./images/book-img.png" alt="">
+          </div>
+        </div>
+        <div class="col-md-6 py-3 py-md-0">
+          <label for="source-language">Source Language:</label>
+          <select id="source-language">
+            <option value="en">English</option>
+            <option value="fr">French</option>
+            <option value="es">Spanish</option>
+            <!-- Add more language options -->
+          </select>
+
+          <label for="target-language">Target Language:</label>
+          <select id="target-language">
+            <option value="en">English</option>
+            <option value="fr">French</option>
+            <option value="es">Spanish</option>
+            <option value="de">German</option>
+            <option value="it">Italian</option>
+            <option value="pt">Portuguese</option>
+            <option value="nl">Dutch</option>
+            <option value="ru">Russian</option>
+            <option value="ja">Japanese</option>
+            <option value="zh-CN">Chinese (Simplified)</option>
+            <option value="ko">Korean</option>
+            <option value="ar">Arabic</option>
+            <option value="tr">Turkish</option>
+            <option value="pl">Polish</option>
+            <option value="sv">Swedish</option>
+            <option value="no">Norwegian</option>
+            <option value="fi">Finnish</option>
+            <option value="da">Danish</option>
+            <option value="hi">Hindi</option>
+            <option value="bn">Bengali</option>
+            <option value="te">Telugu</option>
+            <option value="mr">Marathi</option>
+            <option value="ta">Tamil</option>
+            <option value="gu">Gujarati</option>
+            <option value="kn">Kannada</option>
+            <option value="ur">Urdu</option>
+            <option value="ml">Malayalam</option>
+            <option value="pa">Punjabi</option>
+            <option value="or">Odia</option>
+            <option value="as">Assamese</option>
+            <option value="ne">Nepali</option>
+            <option value="si">Sinhala</option>
+            <option value="my">Burmese</option>
+            <option value="th">Thai</option>
+            <option value="vi">Vietnamese</option>
+            <option value="id">Indonesian</option>
+            <option value="ms">Malay</option>
+            <option value="tl">Filipino</option>
+            <option value="km">Khmer</option>
+            <option value="lo">Lao</option>
+            <option value="ka">Georgian</option>
+            <option value="am">Amharic</option>
+            <option value="om">Oromo</option>
+            <option value="ig">Igbo</option>
+            <option value="yo">Yoruba</option>
+            <option value="ha">Hausa</option>
+            <option value="sw">Swahili</option>
+            <option value="mg">Malagasy</option>
+            <option value="sn">Shona</option>
+            <option value="rw">Kinyarwanda</option>
+            <option value="so">Somali</option>
+            <option value="st">Sesotho</option>
+            <option value="tn">Setswana</option>
+            <option value="xh">isiXhosa</option>
+            <option value="zu">isiZulu</option>
+            <option value="ny">Chichewa</option>
+            <option value="ee">Ewe</option>
+            <option value="ak">Akan</option>
+            <option value="ig">Igbo</option>
+            <option value="ln">Lingala</option>
+            <option value="sg">Sango</option>
+            <option value="wo">Wolof</option>
+            <option value="ff">Fulfulde</option>
+            <option value="ha">Hausa</option>
+            <option value="ki">Kikuyu</option>
+            <option value="lu">Luba-Katanga</option>
+            <option value="ss">SiSwati</option>
+            <option value="ts">Tsonga</option>
+            <option value="ve">Venda</option>
+            <option value="nr">isiNdebele</option>
+            <option value="dz">Dzongkha</option>
+            <option value="bo">Tibetan</option>
+            <option value="si">Sinhala</option>
+            <option value="km">Khmer</option>
+
+
+
+            <!-- Add more language options -->
+          </select>
+
+          <label for="input-text">Input Text:</label>
+          <!-- <textarea id="input-text" rows="4" cols="50"></textarea> -->
+          <div class="speech-container">
+            <textarea id="input-text" rows="4" cols="50"></textarea>
+            <img src="https://img.icons8.com/ios-glyphs/30/microphone.png" alt="Mic Icon" class="mic-icon"
+              onclick="startRecognition()">
+          </div>
+
+          <button onclick="translateText()">Translate</button>
+          <br>
+
+          <label for="output-text">Translated Text:</label>
+          <!-- <textarea id="output-text" rows="4" cols="50" readonly></textarea> -->
+          <div class="text-to-speech-container">
+            <textarea id="output-text" rows="4" cols="50" readonly></textarea>
+            <img src="https://img.icons8.com/ios-glyphs/30/speaker.png" alt="Speaker Icon" class="speaker-icon"
+              onclick="speakText()">
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+
+
+
+    <script>
+      async function translateText() {
+        const sourceLanguage = document.getElementById("source-language").value;
+        const targetLanguage = document.getElementById("target-language").value;
+        const inputText = document.getElementById("input-text").value;
+
+        // Use MyMemory API with correct URL formatting
+        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(inputText)}&langpair=${sourceLanguage}|${targetLanguage}`;
+
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+
+          if (data.responseData && data.responseData.translatedText) {
+            document.getElementById("output-text").value = data.responseData.translatedText;
+          } else {
+            document.getElementById("output-text").value = "Translation failed. Please try again.";
+          }
+        } catch (error) {
+          console.error("Translation failed:", error);
+          document.getElementById("output-text").value = "Translation failed. Please try again.";
+        }
+      }
+    </script>
+
+
+
+    </div>
+    </div>
+  </section>
+  <!-- Section Book End -->
+
+
+  <!-- About Start -->
+  <section class="about" id="about">
+    <div class="container">
+
+      <div class="main-txt">
+        <h1>About <span>Us</span></h1>
+      </div>
+
+      <div class="row" style="margin-top: 50px;">
+
+        <div class="col-md-6 py-3 py-md-0">
+          <div class="card">
+            <img src="./images/about-img.png" alt="">
+          </div>
+        </div>
+
+        <div class="col-md-6 py-3 py-md-0">
+          <h2>How Traslator Website Work</h2>
+          <p>Welcome to our Text Translator website, where language barriers become a thing of the past! Our platform is
+            designed to make text translation fast, accurate, and easy to use, allowing you to connect and communicate
+            seamlessly across languages.</p>
+          <button id="about-btn">Read More...</button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+  <!-- About End -->
+
+
+
+
+
+
+
+
+  <!-- Footer Start -->
+  <footer id="footer">
+    <h1><span>T</span>ranslator</h1>
+    <p>Get In Touch with Us...!</p>
+    <div class="social-links">
+      <i class="fa-brands fa-twitter"></i>
+      <i class="fa-brands fa-facebook"></i>
+      <i class="fa-brands fa-instagram"></i>
+      <i class="fa-brands fa-youtube"></i>
+      <i class="fa-brands fa-pinterest-p"></i>
+    </div>
+    <div class="credit">
+      <p>Designed By <a href="#">code commandos</a></p>
+    </div>
+    <div class="copyright">
+      <p>&copy;Copyright Translator Website. All Rights Reserved</p>
+    </div>
+  </footer>
+  <!-- Footer End -->
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+
+  <script>
+    // Function to start speech recognition
+    function startRecognition() {
+      // Check if the browser supports the SpeechRecognition API
+      if (!('webkitSpeechRecognition' in window)) {
+        alert("Sorry, your browser doesn't support speech recognition.");
+        return;
+      }
+
+      // Create a new instance of the SpeechRecognition API
+      const recognition = new webkitSpeechRecognition();
+      recognition.lang = 'en-US';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      // Add 'listening' class to show animation
+      document.querySelector('.speech-container').classList.add('listening');
+
+      // Start speech recognition
+      recognition.start();
+
+      // Handle the result and display it in the textarea
+      recognition.onresult = function (event) {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById('input-text').value += transcript;
+      };
+
+      // Remove 'listening' class when recognition ends
+      recognition.onend = function () {
+        document.querySelector('.speech-container').classList.remove('listening');
+      };
+
+      // Handle any errors
+      recognition.onerror = function (event) {
+        console.error("Speech recognition error:", event.error);
+        document.querySelector('.speech-container').classList.remove('listening');
+        alert("An error occurred: " + event.error);
+      };
+    }
+  </script>
+
+  <script>
+    // Function to trigger text-to-speech
+    function speakText() {
+      const text = document.getElementById('output-text').value;
+
+      // Check if there is text to speak
+      if (text.trim() === '') {
+        alert('No text available to read.');
+        return;
+      }
+
+      // Create a new SpeechSynthesisUtterance instance
+      const utterance = new SpeechSynthesisUtterance(text);
+
+      // Add 'speaking' class to show animation
+      document.querySelector('.text-to-speech-container').classList.add('speaking');
+
+      // Start speaking
+      window.speechSynthesis.speak(utterance);
+
+      // Remove 'speaking' class when speaking ends
+      utterance.onend = function () {
+        document.querySelector('.text-to-speech-container').classList.remove('speaking');
+      };
+    }
+  </script>
+</body>
+
+</html>

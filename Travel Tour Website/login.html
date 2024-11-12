@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Html Website</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    
+    <header>
+        <h2 class="logo">Translator </h2>
+      
+    </header>
+
+    <div class="warpper">
+        <div class="form-box login">
+            <h2>Login</h2>
+            <form action="index.html" onsubmit="return validateForm()">
+                <div class="input-box">
+                  <span class="icon"></span>
+                  <input type="email" id="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                  <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"></span>
+                    <input type="password" id="password" required>
+                    <label>Password</label>
+                </div>
+                <div class="remember-forgot">
+                    <label><input type="checkbox">Remember me</label>
+                    <a href="index.html">Forgot Password ?</a>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <div class="login-regester">
+                    <p>Don't have account ?<a href="index.html" class="register-link">Register</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+   
+    <script>
+        function validateForm() {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            // Simple email validation using regular expression
+            var emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+            if (!emailRegex.test(email)) {
+                alert("Please enter a valid email address");
+                return false;
+            }
+
+            // You can add more complex password validation if needed
+
+            // If everything is valid, return true to submit the form
+            return true;
+        }
+    </script>
+</body>
+</html>
